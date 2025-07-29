@@ -5,9 +5,8 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import pages.home.LoginPage;
+import utilities.ErrorHandler;
 import utilities.DriverManager;
-
-import static utilities.DriverManager.driver;
 
 public class LoginStepDef {
 
@@ -45,10 +44,15 @@ public class LoginStepDef {
 
     @When("user enter wrong password with {string}")
     public void userEnterWrongPasswordWith(String arg0) {
+        LoginPage loginPage = new LoginPage();
+        loginPage.enterpassword(arg0);
     }
 
     @And("user view error message with {string}")
     public void userViewErrorMessageWith(String arg0) {
+        ErrorHandler allertHandler = new ErrorHandler();
+        String actualAllertMessage = allertHandler.waitErrorMessage(arg0);
+        System.out.println("actualAlertMessage: " + actualAllertMessage);
     }
 }
 
